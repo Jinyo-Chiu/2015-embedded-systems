@@ -1,20 +1,20 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#define ROW 12  //¶C
-#define COL 15  //¶Ê
+#define ROW 12  //Âàó
+#define COL 15  //Ë°å
 #define stackMAX ROW*COL
 #define offs 8
 
  typedef struct
  {
-   short int vert;//´´™Ω Y
-   short int horiz;//§Ù•≠ X
+   short int vert;//ÂûÇÁõ¥ Y
+   short int horiz;//Ê∞¥Âπ≥ X
  }offsets;
 
-offsets move[offs];//¿x¶s≤æ∞ §Ë¶V™∫∞}¶C 
+offsets move[offs];//ÂÑ≤Â≠òÁßªÂãïÊñπÂêëÁöÑÈô£Âàó 
 
-//¶—π´™∫≤æ∞ ™Ì°]¶≥¿u•˝≈v ∑|•˝±q•ø•_§Ë(vert=-1 horiz=0)∂}©løÔæ‹ ≠Y•ø•_§Ë§£≥q¶A®Ãß«±q∂∂Æ…∞w§Ë¶V¥Mß‰°^
+//ËÄÅÈº†ÁöÑÁßªÂãïË°®ÔºàÊúâÂÑ™ÂÖàÊ¨ä ÊúÉÂÖàÂæûÊ≠£ÂåóÊñπ(vert=-1 horiz=0)ÈñãÂßãÈÅ∏Êìá Ëã•Ê≠£ÂåóÊñπ‰∏çÈÄöÂÜç‰æùÂ∫èÂæûÈ†ÜÊôÇÈáùÊñπÂêëÂ∞ãÊâæÔºâ
 void move_table() 
 {
   move[0].vert=-1; move[0].horiz=0;
@@ -34,13 +34,13 @@ typedef struct
   short int dir;
 }element;
 
-element stack[stackMAX];//±¿≈| ¶≥(row  col  dir)  §T§∏Ø¿ 
+element stack[stackMAX];//Êé®Áñä Êúâ(row  col  dir)  ‰∏âÂÖÉÁ¥† 
 int top=-1;
 
 void push(element a)
 {
    if(top>=stackMAX-1)
-      printf("±¿≈|∫°§F\n");
+      printf("Êé®ÁñäÊªø‰∫Ü\n");
    else
    {
      top++;
@@ -54,7 +54,7 @@ element pop()
    element x;
      if (top<=-1)
       {
-         printf("±¿≈|™≈§F\n");
+         printf("Êé®ÁñäÁ©∫‰∫Ü\n");
       }
     else
     {
@@ -66,7 +66,7 @@ element pop()
     }
 }
 
-//∞gÆcØx∞}¨∞row=12 col=15 §£πLRow∏ÚCol¶U+2 ¨∞≠n®æ§Ó®´•X√‰¨…©“•H≥Ã•~≥Ú≥£¨O1    0=•i•H®´  1=§£Ø‡®´
+//Ëø∑ÂÆÆÁü©Èô£ÁÇ∫row=12 col=15 ‰∏çÈÅéRowË∑üColÂêÑ+2 ÁÇ∫Ë¶ÅÈò≤Ê≠¢Ëµ∞Âá∫ÈÇäÁïåÊâÄ‰ª•ÊúÄÂ§ñÂúçÈÉΩÊòØ1    0=ÂèØ‰ª•Ëµ∞  1=‰∏çËÉΩËµ∞
 int maze[ROW+2][COL+2] = { {1  ,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,  1},
 
                            {1  ,0,1,0,0,0,1,1,0,0,0,1,1,1,1,1,  1},
@@ -84,41 +84,41 @@ int maze[ROW+2][COL+2] = { {1  ,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,  1},
 
                            {1  ,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,  1} };
 
-int mark[ROW+2][COL+2]={0};//≠p∏πØx∞}  ∞Oø˝¶—π´®´πL™∫∏Ù 
-int EXIT_ROW=ROW-1,EXIT_COL=COL;//≤◊¬I™∫Row∏ÚCol 
+int mark[ROW+2][COL+2]={0};//Ë®àËôüÁü©Èô£  Ë®òÈåÑËÄÅÈº†Ëµ∞ÈÅéÁöÑË∑Ø 
+int EXIT_ROW=ROW-1,EXIT_COL=COL;//ÁµÇÈªûÁöÑRowË∑üCol 
 
-void path()//ß‰¥M∏ÙÆ| 
+void path()//ÊâæÂ∞ãË∑ØÂæë 
 {
    int i,j, row, col, nextRow, nextCol, dir, found=0;
    element position;
-   mark[1][1]=1;//∞_©l¬I•˝∞µ≠p∏π 
+   mark[1][1]=1;//Ëµ∑ÂßãÈªûÂÖàÂÅöË®àËôü 
    top=0;
    stack[0].row=1;
    stack[0].col=1;
    stack[0].dir=1;
 
-   while(top>-1 && found!=1)//∑Ì±¿≈|§£¨∞™≈ 
+   while(top>-1 && found!=1)//Áï∂Êé®Áñä‰∏çÁÇ∫Á©∫ 
      {
-       position=pop();//popµπposition 
+       position=pop();//popÁµ¶position 
        row=position.row;
        col=position.col;
        dir=position.dir;
      
-      while(dir<offs && found!=1)//dir<0ffs•N™Ì≤æ∞ ™Ì¡Ÿ¶≥•i•H®´™∫∏Ù 
-        { //•Hdir™∫§Ë¶V≤æ∞     
-           nextRow=row+move[dir].vert;//§U§@¶∏≤æ∞ ™∫row 
-           nextCol=col+move[dir].horiz;//§U§@¶∏≤æ∞ ™∫col
+      while(dir<offs && found!=1)//dir<0ffs‰ª£Ë°®ÁßªÂãïË°®ÈÇÑÊúâÂèØ‰ª•Ëµ∞ÁöÑË∑Ø 
+        { //‰ª•dirÁöÑÊñπÂêëÁßªÂãï    
+           nextRow=row+move[dir].vert;//‰∏ã‰∏ÄÊ¨°ÁßªÂãïÁöÑrow 
+           nextCol=col+move[dir].horiz;//‰∏ã‰∏ÄÊ¨°ÁßªÂãïÁöÑcol
           
-           if(nextRow==EXIT_ROW && nextCol == EXIT_COL)//¨Oß_¶≥µo≤{≤◊¬I 
+           if(nextRow==EXIT_ROW && nextCol == EXIT_COL)//ÊòØÂê¶ÊúâÁôºÁèæÁµÇÈªû 
               found=1;
-           else  if(!maze[nextRow][nextCol] && !mark[nextRow][nextCol] )//¶X™k™∫≤æ∞ ¶”•Bmark®S∞µ∞O∏π •N™Ì•˝´e®S®”πL 
+           else  if(!maze[nextRow][nextCol] && !mark[nextRow][nextCol] )//ÂêàÊ≥ïÁöÑÁßªÂãïËÄå‰∏îmarkÊ≤íÂÅöË®òËôü ‰ª£Ë°®ÂÖàÂâçÊ≤í‰æÜÈÅé 
                   {
-                      mark[nextRow][nextCol]=1;//∞µ∞O∏π 
-                      //¿x¶s•ÿ´e™∫¶Ï∏m©M§Ë¶V
+                      mark[nextRow][nextCol]=1;//ÂÅöË®òËôü 
+                      //ÂÑ≤Â≠òÁõÆÂâçÁöÑ‰ΩçÁΩÆÂíåÊñπÂêë
                       position.row=row; 
                       position.col=col;
                       position.dir=++dir;
-                      //´O¶s¶‹±¿≈| 
+                      //‰øùÂ≠òËá≥Êé®Áñä 
                       push(position);
                       row=nextRow;
                       col=nextCol;
@@ -128,21 +128,21 @@ void path()//ß‰¥M∏ÙÆ|
          }    
       }
     
-    if(found==1)//≠Yµo≤{≤◊¬I 
+    if(found==1)//Ëã•ÁôºÁèæÁµÇÈªû 
     {     
-        printf("¶—π´®´πL™∫∏Ù\n");
+        printf("ËÄÅÈº†Ëµ∞ÈÅéÁöÑË∑Ø\n");
         for(i=1;i<=ROW;i++)
         for(j=1;j<=COL;j++)
          {
           if(mark[i][j]!=0)
-             printf("X ");//¶L•XX•N™Ì¶—π´®´πL™∫©“¶≥∏Ù≥w
+             printf("X ");//Âç∞Âá∫X‰ª£Ë°®ËÄÅÈº†Ëµ∞ÈÅéÁöÑÊâÄÊúâË∑ØÈÄï
           else
           printf("%d ",mark[i][j]);  
           if(j==COL)
             printf("\n");
          }  
      printf("\n################################\n");
-      printf("µo≤{•X§f\n");      
+      printf("ÁôºÁèæÂá∫Âè£\n");      
        for(i=0;i<=top;i++)
          maze[ stack[i].row ][ stack[i].col ]=9;   
        maze[row][col]=9;
@@ -150,7 +150,7 @@ void path()//ß‰¥M∏ÙÆ|
        for(i=1;i<=ROW;i++)
         for(j=1;j<=COL;j++)
          {
-          if(maze[i][j]==9)//¶L•X≥Ã≤◊∏ÙÆ| 
+          if(maze[i][j]==9)//Âç∞Âá∫ÊúÄÁµÇË∑ØÂæë 
              printf("* ");
           else 
              printf("%d ",maze[i][j]);
@@ -171,4 +171,3 @@ int main(void)
   system("pause");
   return 0;     
 }
-
