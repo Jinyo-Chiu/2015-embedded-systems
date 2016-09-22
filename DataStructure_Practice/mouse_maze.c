@@ -167,7 +167,5 @@ int main(void)
 {
   move_table() ;
   path();
-  
-  system("pause");
   return 0;     
 }
