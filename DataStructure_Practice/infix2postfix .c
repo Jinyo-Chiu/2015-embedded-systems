@@ -1,22 +1,22 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 
 #define STACK_SIZE 50 
 
-#define ADD_SUB   1       /*¥Nªí ¥[´î*/
-#define MULT_DIV  2   	   /* ¥Nªí ­¼°£ */
-#define LEFT      3         /* ¥Nªí¥ª¬A¸¹ */
-#define RIGHT     4          /* ¥Nªí¥k¬A¸¹ */
+#define ADD_SUB   1       /*ä»£è¡¨ åŠ æ¸›*/
+#define MULT_DIV  2   	   /* ä»£è¡¨ ä¹˜é™¤ */
+#define LEFT      3         /* ä»£è¡¨å·¦æ‹¬è™Ÿ */
+#define RIGHT     4          /* ä»£è¡¨å³æ‹¬è™Ÿ */
 
-char stack[STACK_SIZE];       /* °ïÅ|°}¦C */
-int top=-1;                  /* °ïÅ|³»ºİ«ü¼Ğ */ 
-int priority[STACK_SIZE];        /*Àu¥ıÅv°ïÅ| */
+char stack[STACK_SIZE];       /* å †ç–Šé™£åˆ— */
+int top=-1;                  /* å †ç–Šé ‚ç«¯æŒ‡æ¨™ */ 
+int priority[STACK_SIZE];        /*å„ªå…ˆæ¬Šå †ç–Š */
 
 
 void push(char s,int number){
    if(top>=STACK_SIZE-1){
-      printf("°ïÅ|º¡¤F");
+      printf("å †ç–Šæ»¿äº†");
    }
    else{
      top++;
@@ -27,10 +27,10 @@ void push(char s,int number){
 
 void pop(){
     if (top==-1){
-      printf("°ïÅ|¤wªÅ\n");
+      printf("å †ç–Šå·²ç©º\n");
     }
     else{
-  /*¤£­n¦L¥X  '('*/
+  /*ä¸è¦å°å‡º  '('*/
        if( priority[top ]!=LEFT){
     printf("%c",stack[top]);
        }
@@ -38,23 +38,23 @@ void pop(){
     }
 } 
 
-/* ¹Bºâ¤l³B²z */
+/* é‹ç®—å­è™•ç† */
 void Operator(char ch,int number) {
 
-  if(top==-1&&number!=RIGHT) /* ­Y°ïÅ|¬°ªÅ ª½±µpush */
+  if(top==-1&&number!=RIGHT) /* è‹¥å †ç–Šç‚ºç©º ç›´æ¥push */
       push(ch,number);
   else{
         switch(number){          
-             /* ­Y¿é¤J¬° ')' ±q°ïÅ|³»ºİ¨Ì§Çpopª½¨ì¥X²{'('  */
+             /* è‹¥è¼¸å…¥ç‚º ')' å¾å †ç–Šé ‚ç«¯ä¾åºpopç›´åˆ°å‡ºç¾'('  */
            case RIGHT:
                 for(priority[top];priority[top]!=LEFT;pop()) ;
-                    pop();//§â³Ì«áªº '(' pop ¦ı¤£¦L¥X 
+                    pop();//æŠŠæœ€å¾Œçš„ '(' pop ä½†ä¸å°å‡º 
                 break;                       
-            /* ­Y¿é¤J¬° '('  ª½±µ PUSH  */
+            /* è‹¥è¼¸å…¥ç‚º '('  ç›´æ¥ PUSH  */
            case LEFT:
                 push(ch,number);
                 break;    
-            /* ­Y¿é¤J¬O '+' '-' '*' '/' */
+            /* è‹¥è¼¸å…¥æ˜¯ '+' '-' '*' '/' */
            case ADD_SUB:
            case MULT_DIV:
    
@@ -62,13 +62,13 @@ void Operator(char ch,int number) {
                    push(ch,number);
                 }
                 else{
-       /* ­Y°ïÅ|¤ºÀu¥ıÅv ¤j©ónumber  */
+       /* è‹¥å †ç–Šå…§å„ªå…ˆæ¬Š å¤§æ–¼number  */
                     while((priority[top]>=number)&&priority[top]!=LEFT)
-                           pop(); /* ¥ıPOP °ïÅ|¤º¦APUSH number  */ 
+                           pop(); /* å…ˆPOP å †ç–Šå…§å†PUSH number  */ 
                     push(ch,number);
                 }   
                 break;
-            /*·í¦r¦ê¤wscan§¹ °ïÅ|¤£¬°ªÅ pop ³Ñ¤Uªº¹Bºâ¤l*/           
+            /*ç•¶å­—ä¸²å·²scanå®Œ å †ç–Šä¸ç‚ºç©º pop å‰©ä¸‹çš„é‹ç®—å­*/           
             case 0:  
        while(top!=-1) 
                       pop();
@@ -83,19 +83,19 @@ int main(void){
     char buf[STACK_SIZE];
     int i=0;
     int error_OP = 0;
-    printf("½Ğ¿é¤J¤¤§Ç :");
-    IndString=gets(buf);//¤¤§Ç¿é¤J
+    printf("è«‹è¼¸å…¥ä¸­åº :");
+    IndString=gets(buf);//ä¸­åºè¼¸å…¥
     printf("\n");
-    printf("«á§Ç¬°:");
+    printf("å¾Œåºç‚º:");
 
-   /*­Y¤£µ¥©óµ²§ô¦r¤¸*/ 
+   /*è‹¥ä¸ç­‰æ–¼çµæŸå­—å…ƒ*/ 
    while(*(IndString+i)!='\0' & !error_OP) {
 
-       /*¼Æ¦r©M¦r¥À¬O¹Bºâ¤¸©Ò¥Hª½±µ¦L¥X */
+       /*æ•¸å­—å’Œå­—æ¯æ˜¯é‹ç®—å…ƒæ‰€ä»¥ç›´æ¥å°å‡º */
       if(isalnum(*(IndString+i))) {    
                printf("%c",*(IndString+i));
       }
-      else if(ispunct(*(IndString+i))) {     //­Y¤£¬O¼Æ¦r ªÅ¥Õ ¦r¥À  «h¬°¯u 
+      else if(ispunct(*(IndString+i))) {     //è‹¥ä¸æ˜¯æ•¸å­— ç©ºç™½ å­—æ¯  å‰‡ç‚ºçœŸ 
        
              switch(*(IndString+i)){
                 case '+':
@@ -126,7 +126,7 @@ int main(void){
      i++; 
    } 
 
-   Operator('\0',0);//¦r¦êscanµ²§ô 
+   Operator('\0',0);//å­—ä¸²scançµæŸ 
    puts("\n------------------------------------\n");
    return 0;
 }
