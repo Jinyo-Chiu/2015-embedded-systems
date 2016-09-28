@@ -9,7 +9,7 @@ int main(int argc,char *argv[]){
 	fb_configure fb_conf;
 	int ret;
 	
-	if(ret=FB_Create(&fb_conf,FBDEV))!=0){
+	if((ret=FB_Create(&fb_conf,FBDEV))!=0){
 		printf("ERROR\n");
 	}
 	/*
